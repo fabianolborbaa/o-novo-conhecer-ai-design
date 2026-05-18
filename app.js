@@ -1,10 +1,20 @@
 const loadingScreens = document.querySelectorAll(".is-loading");
 
-window.addEventListener("load", () => {
+const releaseLoadingScreens = () => {
   window.setTimeout(() => {
     loadingScreens.forEach((screen) => screen.classList.remove("is-loading"));
   }, 850);
-});
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", releaseLoadingScreens, { once: true });
+} else {
+  releaseLoadingScreens();
+}
+
+window.setTimeout(() => {
+  loadingScreens.forEach((screen) => screen.classList.remove("is-loading"));
+}, 1800);
 
 const propertySheet = document.querySelector("#property-sheet");
 const sheetHandle = propertySheet?.querySelector(".sheet-drag-handle");
